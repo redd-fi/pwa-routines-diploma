@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О приложении — Мои распорядки</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="196x196" href="icons/favicon-196.png">
+    <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+<main class="main-content">
+    <div class="top-bar">
+        <button class="menu-btn" onclick="window.location.href='index.html'">← Назад</button>
+        <h1 class="app-title">О приложении</h1>
+        <div class="placeholder"></div>
+    </div>
+
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-avatar">
+                <span class="avatar-icon">📱</span>
+            </div>
+
+            <div class="about-section">
+                <h3>📋 О проекте</h3>
+                <p><strong>Мои распорядки</strong> — это прогрессивное веб-приложение (PWA) для формирования полезных привычек и организации распорядка дня.</p>
+                <p>Приложение работает в офлайн-режиме, поддерживает установку на домашний экран и синхронизирует данные между устройствами.</p>
+            </div>
+
+            <div class="about-section">
+                <h3>🛠️ Технологии</h3>
+                <ul>
+                    <li>Frontend: HTML, CSS, JavaScript (ES6+)</li>
+                    <li>PWA: Service Worker, Web App Manifest</li>
+                    <li>Backend: Node.js, Express, PostgreSQL</li>
+                    <li>Аутентификация: JWT, bcrypt</li>
+                </ul>
+            </div>
+
+            <div class="about-section contact-section">
+                <h3>📬 Контакты</h3>
+                <div class="contact-links">
+                    <a href="mailto:myroutines@mail.ru" class="contact-link">
+                        <span class="contact-icon">✉️</span>
+                        <span>myroutines@mail.ru</span>
+                    </a>
+                    <a href="https://github.com/redd-fi/redd-fi" target="_blank" class="contact-link">
+                        <span class="contact-icon">🐙</span>
+                        <span>github.com/redd-fi/redd-fi</span>
+                    </a>
+                    <a href="https://t.me/redd4eva" target="_blank" class="contact-link">
+                        <span class="contact-icon">🔗</span>
+                        <span>t.me/@redd4eva</span>
+                    </a>
+                    <a href="https://vk.com/matvey.redd" target="_blank" class="contact-link">
+                        <span class="contact-icon">🔗</span>
+                        <span>vk.com/matvey.redd</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h3>📅 Версия</h3>
+                <p>Версия 1.0.0</p>
+                <p>© 2026 — Мои распорядки</p>
+                <p>Дипломный проект — Калачев М.Р., 2026</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="auth.js"></script>
+<script src="theme.js"></script>
+<script>
+    if (!localStorage.getItem('authToken')) {
+        window.location.href = 'login.html';
+    }
+</script>
+</body>
+</html>

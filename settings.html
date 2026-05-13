@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройки — Мои распорядки</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="196x196" href="icons/favicon-196.png">
+    <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+<main class="main-content">
+    <div class="top-bar">
+        <button class="menu-btn" onclick="window.location.href='index.html'">← Назад</button>
+        <h1 class="app-title">Настройки</h1>
+        <div class="placeholder"></div>
+    </div>
+
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="form-group">
+                <label>🌓 Тема оформления</label>
+                <select id="themeSelect">
+                    <option value="light">☀️ Светлая</option>
+                    <option value="dark">🌙 Тёмная</option>
+                </select>
+            </div>
+
+            <div id="settingsMessage" class="success-message" style="display: none;"></div>
+        </div>
+    </div>
+</main>
+
+<script src="auth.js"></script>
+<script src="theme.js"></script>
+<script>
+    // Убедимся, что пользователь авторизован
+    if (!localStorage.getItem('authToken')) {
+        window.location.href = 'login.html';
+    }
+
+    // Устанавливаем текущее значение в select
+    const themeSelect = document.getElementById('themeSelect');
+    if (themeSelect) {
+        themeSelect.value = localStorage.getItem('theme') || 'light';
+        themeSelect.addEventListener('change', (e) => {
+            applyTheme(e.target.value);
+            const msg = document.getElementById('settingsMessage');
+            if (msg) {
+                msg.textContent = '✅ Тема обновлена';
+                msg.style.display = 'block';
+                setTimeout(() => msg.style.display = 'none', 2000);
+            }
+        });
+    }
+</script>
+</body>
+</html>

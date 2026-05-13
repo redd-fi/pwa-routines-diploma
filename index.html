@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Мои распорядки - PWA</title>
+    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="196x196" href="icons/favicon-196.png">
+    <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">  
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+
+    <!-- ==================== БОКОВОЕ МЕНЮ ==================== -->
+    
+    <!-- Затемнение при открытом меню -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Боковое меню -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Меню</h2>
+            <button class="close-menu" id="closeMenuBtn">✕</button>
+        </div>
+        <ul class="menu-items">
+            <li>
+                <a href="profile.html" class="menu-link" data-page="profile">
+                    <span class="menu-icon">👤</span>
+                    <span>Профиль</span>
+                </a>
+            </li>
+            <li>
+                <a href="settings.html" class="menu-link" data-page="settings">
+                    <span class="menu-icon">⚙️</span>
+                    <span>Настройки</span>
+                </a>
+            </li>
+            <li>
+                <a href="about.html" class="menu-link" data-page="about">
+                    <span class="menu-icon">ℹ️</span>
+                    <span>О приложении</span>
+                </a>
+            </li>
+            <li>
+                <a href="about.html" class="menu-link" data-page="contact">
+                    <span class="menu-icon">📧</span>
+                    <span>Контакты</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- ==================== ОСНОВНОЙ КОНТЕНТ ==================== -->
+    
+    <main class="main-content" id="mainContent">
+        <!-- Верхняя панель с кнопкой меню -->
+        <div class="top-bar">
+            <button class="menu-btn" id="menuBtn">☰</button>
+            <h1 class="app-title">Мои распорядки</h1>
+            <div class="placeholder"></div>
+        </div>
+
+        <!-- Приветственная секция -->
+        <section class="greeting-section">
+            <h2 id="greetingText">Доброе утро,</h2>
+            <p class="user-name" id="userName">Друг</p>
+            <p class="current-datetime" id="currentDateTime"></p>
+        </section>
+
+        <!-- Секция распорядок и кнопка добавления -->
+        <section class="routines-section">
+            <div class="routines-header">
+                <h3>Ваши распорядки</h3>
+                <button class="add-btn" id="addRoutineBtn">+ Добавить</button>
+            </div>
+            <div class="routines-container" id="routinesContainer">
+                <!-- Карточки распорядок будут добавлены динамически -->
+            </div>
+        </section>
+    </main>
+
+    <!-- ==================== МОДАЛЬНОЕ ОКНО ДОБАВЛЕНИЯ/РЕДАКТИРОВАНИЯ ==================== -->
+    
+    <div class="modal-overlay" id="modalOverlay"></div>
+    
+    <div class="modal-container" id="modalContainer">
+        <div class="modal-header">
+            <h2 id="modalTitle">Добавить распорядок</h2>
+            <button class="close-modal" id="closeModalBtn">✕</button>
+        </div>
+        
+        <div class="modal-body">
+            <!-- Название распорядка -->
+            <div class="form-group">
+                <label for="routineName">Название распорядка <span class="required">*</span></label>
+                <input type="text" id="routineName" placeholder="Например: Утренний кофе" maxlength="50">
+            </div>
+            
+            <!-- Выбор цвета -->
+            <div class="form-group">
+                <label>Цвет <span class="required">*</span></label>
+                <div class="color-picker" id="colorPicker">
+                    <div class="color-swatch" data-color="#4A90E2" style="background: #4A90E2;" title="Синий"></div>
+                    <div class="color-swatch" data-color="#34C759" style="background: #34C759;" title="Зелёный"></div>
+                    <div class="color-swatch" data-color="#FF9F4A" style="background: #FF9F4A;" title="Персиковый"></div>
+                    <div class="color-swatch" data-color="#AF52DE" style="background: #AF52DE;" title="Лавандовый"></div>
+                    <div class="color-swatch" data-color="#FF6B6B" style="background: #FF6B6B;" title="Коралловый"></div>
+                </div>
+                <input type="hidden" id="routineColor" value="#E3F2FD">
+            </div>
+            
+            <!-- Дни повторения -->
+            <div class="form-group">
+                <label>Дни повторения <span class="required">*</span></label>
+                <div class="repeat-days" id="repeatDays">
+                    <button type="button" class="day-btn" data-day="1">Пн</button>
+                    <button type="button" class="day-btn" data-day="2">Вт</button>
+                    <button type="button" class="day-btn" data-day="3">Ср</button>
+                    <button type="button" class="day-btn" data-day="4">Чт</button>
+                    <button type="button" class="day-btn" data-day="5">Пт</button>
+                    <button type="button" class="day-btn" data-day="6">Сб</button>
+                    <button type="button" class="day-btn" data-day="0">Вс</button>
+                </div>
+            </div>
+            
+            <!-- Список шагов -->
+            <div class="form-group">
+                <label>Шаги <span class="required">*</span></label>
+                <div class="steps-list" id="stepsList">
+                    <!-- Шаги будут добавлены динамически -->
+                </div>
+                <button type="button" class="add-step-btn" id="addStepBtn">+ Добавить шаг</button>
+            </div>
+            
+            <!-- Время начала и окончания -->
+            <div class="form-row">
+                <div class="form-group half">
+                    <label>Время начала</label>
+                    <input type="text" id="timeStart" placeholder="ЧЧ:ММ (например, 14:30)" pattern="[0-2][0-9]:[0-5][0-9]" maxlength="5">
+                </div>
+                <div class="form-group half">
+                    <label>Время окончания</label>
+                    <input type="text" id="timeEnd" placeholder="ЧЧ:ММ (например, 15:30)" pattern="[0-2][0-9]:[0-5][0-9]" maxlength="5">
+                </div>
+            </div>
+            
+            <!-- Описание -->
+            <div class="form-group">
+                <label>Описание</label>
+                <textarea id="routineDescription" rows="2" placeholder="Добавьте описание..."></textarea>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <button class="cancel-btn" id="cancelModalBtn">Отмена</button>
+            <button class="save-btn" id="saveRoutineBtn">Сохранить</button>
+        </div>
+    </div>
+
+    <!-- ==================== МОДАЛЬНОЕ ОКНО ВЫПОЛНЕНИЯ распорядок ==================== -->
+
+    <div class="progress-overlay" id="progressOverlay"></div>
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-header">
+            <h2 id="progressRoutineName">Название распорядка</h2>
+            <button class="close-progress" id="closeProgressBtn">✕</button>
+        </div>
+        
+        <div class="progress-body">
+            <div class="beads-container" id="beadsContainer"></div>
+            
+            <div class="step-content">
+                <div class="step-counter" id="stepCounter">Шаг 1 из 3</div>
+                <div class="step-name" id="stepName">Название шага</div>
+                <div class="step-actions">
+                    <button class="complete-step-btn" id="completeStepBtn">✓ Выполнить</button>
+                    <button class="skip-step-btn" id="skipStepBtn">⏭ Пропустить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== ПОДТВЕРЖДЕНИЕ ПРОПУСКА ==================== -->
+
+    <div class="skip-overlay" id="skipOverlay"></div>
+    <div class="skip-container" id="skipContainer">
+        <div class="skip-header">
+            <h2>⏭ Пропустить распорядок?</h2>
+        </div>
+        <div class="skip-body">
+            <p id="skipRoutineName">Название распорядка</p>
+            <p class="skip-warning">Этот распорядок будет отмечен как пропущенный.<br>Вы сможете запустить его позже.</p>
+        </div>
+        <div class="skip-footer">
+            <button class="cancel-skip-btn" id="cancelSkipBtn">Отмена</button>
+            <button class="confirm-skip-btn" id="confirmSkipBtn">Пропустить</button>
+        </div>
+    </div>
+    
+    <!-- ==================== ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ ==================== -->
+
+    <div class="delete-overlay" id="deleteOverlay"></div>
+    <div class="delete-container" id="deleteContainer">
+        <div class="delete-header">
+            <h2>🗑️ Удалить распорядок?</h2>
+        </div>
+        <div class="delete-body">
+            <p id="deleteRoutineName">Название распорядка</p>
+            <p class="delete-warning">Это действие нельзя отменить.</p>
+        </div>
+        <div class="delete-footer">
+            <button class="cancel-delete-btn" id="cancelDeleteBtn">Отмена</button>
+            <button class="confirm-delete-btn" id="confirmDeleteBtn">Удалить</button>
+        </div>
+    </div>
+
+    <!-- ==================== ЗАВЕРШЕНИЕ ВЫПОЛНЕНИЯ ==================== -->
+
+    <div class="completion-overlay" id="completionOverlay"></div>
+    <div class="completion-container" id="completionContainer">
+        <div class="completion-header">
+            <h2>🎉 ЗАВЕРШЕНО! 🎉</h2>
+        </div>
+        <div class="completion-body">
+            <p class="completion-routine-name" id="completionRoutineName">Название распорядка</p>
+            <p class="completion-message">распорядок выполнен!</p>
+            <p class="completion-stats" id="completionStats">0 выполнено, 0 пропущено</p>
+        </div>
+        <div class="completion-footer">
+            <button class="close-completion-btn" id="closeCompletionBtn">Закрыть</button>
+        </div>
+    </div>
+    
+    <script src="auth.js"></script>
+    <script src="theme.js"></script>
+    <script src="app.js"></script>
+    <script src="steps-drag-drop.js"></script>
+    <script src="routine.js"></script>
+</body>
+</html>

@@ -1,0 +1,1697 @@
+/* ==================== RESET & BASE STYLES ==================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #f5f5f5;
+    color: #1a1a1a;
+    overflow-x: hidden;
+}
+
+/* ==================== ТЕМЫ ОФОРМЛЕНИЯ ==================== */
+
+/* Светлая тема (по умолчанию) */
+body.light-theme {
+    background: #f9fafb;
+    color: #111827;
+}
+
+body.light-theme .profile-card,
+body.light-theme .modal-container,
+body.light-theme .sidebar,
+body.light-theme .routine-card,
+body.light-theme .auth-card {
+    background: white;
+    color: #111827;
+}
+
+/* ==================== ТЁМНАЯ ТЕМА ==================== */
+
+body.dark-theme {
+    background: #121826;
+    color: #f1f5f9;
+}
+
+/* Основные тексты */
+body.dark-theme .app-title,
+body.dark-theme .routines-header h3,
+body.dark-theme .section-title,
+body.dark-theme .greeting-section h2,
+body.dark-theme .user-name,
+body.dark-theme .current-datetime,
+body.dark-theme .routine-name {
+    color: #f1f5f9;
+}
+
+body.dark-theme .routine-time {
+    color: #94a3b8;
+}
+
+/* Секции и карточки */
+body.dark-theme .profile-card,
+body.dark-theme .modal-container,
+body.dark-theme .sidebar,
+body.dark-theme .routine-card,
+body.dark-theme .routine-card-content,
+body.dark-theme .auth-card {
+    background: #1e293b;
+    color: #f1f5f9;
+}
+
+/* Боковое меню */
+body.dark-theme .sidebar .menu-link,
+body.dark-theme .sidebar-header h2 {
+    color: #f1f5f9;
+}
+
+body.dark-theme .sidebar-header {
+    border-bottom-color: #334155;
+}
+
+body.dark-theme .close-menu {
+    color: #94a3b8;
+}
+
+/* Кнопка меню (☰) */
+body.dark-theme .menu-btn {
+    background: #1e293b;
+    color: #f1f5f9;
+    box-shadow: none;
+}
+
+/* Профиль */
+body.dark-theme .profile-stats,
+body.dark-theme .profile-stats p,
+body.dark-theme .profile-stats h3 {
+    color: #cbd5e1;
+}
+
+body.dark-theme .form-group label {
+    color: #cbd5e1;
+}
+
+/* Настройки */
+body.dark-theme .form-group select,
+body.dark-theme .form-group select option {
+    background: #0f172a;
+    color: #f1f5f9;
+    border-color: #334155;
+}
+
+/* Модальные окна (пошаговое выполнение) */
+body.dark-theme .progress-container {
+    background: #1e293b;
+    color: #f1f5f9;
+}
+
+body.dark-theme .progress-header {
+    background: #0f172a;
+    border-bottom-color: #334155;
+}
+
+body.dark-theme .progress-header h2 {
+    color: #f1f5f9;
+}
+
+body.dark-theme .step-counter,
+body.dark-theme .step-name {
+    color: #f1f5f9;
+}
+
+body.dark-theme .bead.upcoming {
+    background: #475569;
+}
+
+body.dark-theme .bead.current {
+    background: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.3);
+}
+
+body.dark-theme .bead.completed {
+    background: #22c55e;
+}
+
+/* Кнопки в модальных окнах */
+body.dark-theme .complete-step-btn,
+body.dark-theme .skip-step-btn {
+    background: #3b82f6;
+    color: white;
+}
+
+body.dark-theme .skip-step-btn {
+    background: #ef4444;
+}
+
+/* Статусные бейджи */
+body.dark-theme .status-upcoming {
+    background: #1e3a5f;
+    color: #7ab7ff;
+}
+
+body.dark-theme .status-active {
+    background: #14532d;
+    color: #6ee7b7;
+}
+
+body.dark-theme .status-missed {
+    background: #7f1a1a;
+    color: #fca5a5;
+}
+
+body.dark-theme .status-completed {
+    background: #374151;
+    color: #9ca3af;
+}
+
+body.dark-theme .status-skipped {
+    background: #854d0e;
+    color: #fcd34d;
+}
+
+/* Формы */
+body.dark-theme .form-group input,
+body.dark-theme .form-group textarea,
+body.dark-theme .auth-form input {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+body.dark-theme .form-group input:focus,
+body.dark-theme .form-group textarea:focus {
+    border-color: #3b82f6;
+}
+
+/* Кнопки */
+body.dark-theme .add-btn,
+body.dark-theme .save-btn,
+body.dark-theme .confirm-skip-btn,
+body.dark-theme .confirm-delete-btn {
+    background: #3b82f6;
+    color: white;
+}
+
+body.dark-theme .cancel-btn,
+body.dark-theme .cancel-skip-btn,
+body.dark-theme .cancel-delete-btn {
+    background: #334155;
+    color: #e2e8f0;
+}
+ 
+/* ==================== SIDEBAR MENU STYLES ==================== */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100%;
+    background: white;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.1);
+    z-index: 1000;
+    transition: left 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #007AFF;
+}
+
+.close-menu {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    padding: 0 8px;
+}
+
+.menu-items {
+    list-style: none;
+    padding: 20px 0;
+}
+
+.menu-items li {
+    margin: 4px 0;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 24px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    transition: background 0.2s;
+    border-radius: 12px;
+}
+
+.menu-link:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.menu-icon {
+    font-size: 24px;
+    width: 32px;
+}
+
+/* Menu Overlay */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==================== MAIN CONTENT ==================== */
+
+.main-content {
+    min-height: 100vh;
+    padding: 16px;
+    transition: transform 0.3s ease;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 8px;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.app-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+.placeholder {
+    width: 48px;
+}
+
+/* ==================== GREETING SECTION ==================== */
+
+.greeting-section {
+    margin-bottom: 32px;
+}
+
+#greetingText {
+    font-size: 24px;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.user-name {
+    font-size: 34px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.current-datetime {
+    font-size: 14px;
+    color: #666;
+}
+
+/* ==================== ROUTINES SECTION ==================== */
+
+.routines-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.routines-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.add-btn {
+    background: #007AFF;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.routines-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ==================== ROUTINE CARD ==================== */
+
+.routine-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.routine-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+/* Colored left border accent */
+.routine-card-content {
+    padding: 16px;
+    border-top: 4px solid;  
+    border-left: none;
+    border-radius: 16px;
+}
+
+.routine-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.routine-name {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+/* Status Badges */
+.status-badge {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.status-upcoming {
+    background: #E3F2FD;
+    color: #1565C0;
+}
+
+.status-active {
+    background: #E8F5E9;
+    color: #2E7D32;
+}
+
+.status-missed {
+    background: #FFEBEE;
+    color: #C62828;
+}
+
+.status-completed {
+    background: #E0E0E0;
+    color: #616161;
+    text-decoration: line-through;
+}
+
+.status-skipped {
+    background: #FFF3E0;
+    color: #ED6C02;
+}
+
+.routine-time {
+    font-size: 13px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Completed routine - crossed out */
+.routine-card.completed .routine-name {
+    text-decoration: line-through;
+    color: #999;
+}
+
+/* ==================== MODAL STYLES (Centered Popup) ==================== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 90%;
+    max-width: 500px;
+    max-height: 85vh;
+    background: white;
+    border-radius: 20px;
+    z-index: 2001;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-container.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+    padding: 0 8px;
+}
+
+.modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-footer {
+    padding: 16px 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.form-group .required {
+    color: #FF3B30;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #007AFF;
+}
+
+.form-row {
+    display: flex;
+    gap: 12px;
+}
+
+.form-group.half {
+    flex: 1;
+}
+
+/* Color Picker */
+.color-picker {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.color-swatch {
+    width: 44px;
+    height: 44px;
+    border-radius: 22px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.color-swatch:hover {
+    transform: scale(1.05);
+}
+
+.color-swatch.selected {
+    border-color: #333;
+    transform: scale(1.05);
+}
+
+/* Repeat Days Buttons */
+.repeat-days {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.day-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 22px;
+    border: 1px solid #ddd;
+    background: white;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.day-btn.selected {
+    background: #007AFF;
+    color: white;
+    border-color: #007AFF;
+}
+
+/* Steps List */
+.steps-list {
+    background: #f8f8f8;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 12px;
+    background: #f8f8f8;
+    border-bottom: 1px solid #eee;
+}
+
+.step-item .step-name {
+    flex: 1;
+    font-size: 15px;          /* Back to readable size */
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    background: transparent;
+    color: #1a1a1a;
+}
+
+.step-item .step-name{
+    border-bottom-color: #007AFF;
+}
+
+.step-item:active {
+    cursor: grabbing;
+}
+
+.step-item:last-child {
+    border-bottom: none;
+}
+
+.step-item.dragging {
+    opacity: 0.5;
+}
+
+.drag-handle {
+    cursor: grab;
+    font-size: 20px;
+    color: #999;
+    user-select: none;
+    flex-shrink: 0;
+    line-height: 1;           /* Prevents extra height */
+}
+
+
+/* Delete button */
+.delete-step {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #999;
+    padding: 8px;
+    flex-shrink: 0;
+    margin-left: auto;
+    line-height: 1;
+}
+
+.add-step-btn {
+    width: 100%;
+    padding: 12px;
+    background: #f0f0f0;
+    border: 1px dashed #ccc;
+    border-radius: 12px;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Modal Buttons */
+.cancel-btn {
+    padding: 10px 20px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.save-btn {
+    padding: 10px 20px;
+    background: #007AFF;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* ==================== STEP PROGRESSION MODAL ==================== */
+
+.progress-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.progress-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.progress-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 90%;
+    max-width: 400px;
+    background: white;
+    border-radius: 20px;
+    z-index: 2001;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.progress-container.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    background: #f8f8f8;
+}
+
+.progress-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.close-progress {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+    padding: 0 8px;
+}
+
+/* Progress modal body – make it a positioning context */
+.progress-body {
+    position: relative;
+    display: flex;
+    justify-content: center;   /* Center the step content horizontally */
+    align-items: center;
+    padding: 20px;
+    min-height: 250px;
+}
+
+
+/* Beads container – absolutely positioned, no layout impact */
+.beads-container {
+    position: absolute;
+    left: 16px;                /* Distance from left edge – adjust as needed */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 32px;
+    pointer-events: none;      /* Prevents beads from blocking button clicks */
+    z-index: 1;
+}
+
+.bead {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ddd;
+    transition: all 0.3s ease;
+}
+
+.bead.completed {
+    background: #34C759;
+    transform: scale(1.2);
+}
+
+.bead.current {
+    background: #007AFF;
+    transform: scale(1.3);
+    box-shadow: 0 0 0 3px rgba(0,122,255,0.3);
+}
+
+.bead.upcoming {
+    background: #ddd;
+}
+
+/* Step content – centered and takes full available width */
+.step-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 80%;            /* Prevents too wide on large screens */
+    z-index: 2;
+}
+
+/* Step counter and name */
+.step-counter {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.step-name {
+    font-size: 20px;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 24px;
+    line-height: 1.4;
+    max-width: 90%;
+    word-wrap: break-word;
+}
+
+/* Ensure step counter and name are block elements */
+.step-counter,
+.step-name {
+    width: 100%;
+}
+
+/* Step actions container – prevent squeezing */
+.step-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;           /* Allows wrapping only if absolutely necessary */
+}
+
+/* Buttons themselves */
+.complete-step-btn,
+.skip-step-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    min-width: 100px;
+    white-space: nowrap;        /* Prevents text from wrapping */
+    flex-shrink: 0;             /* Prevents buttons from shrinking */
+}
+
+.complete-step-btn {
+    background: #34C759;
+    color: white;
+}
+
+.skip-step-btn {
+    background: #FF3B30;
+    color: white;
+}
+
+/* On smaller screens, allow slightly smaller padding if needed */
+@media (max-width: 400px) {
+    .complete-step-btn,
+    .skip-step-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+        min-width: 80px;
+    }
+}
+
+
+
+/* Slide animation for steps */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.step-content {
+    animation: slideDown 0.3s ease;
+}
+
+/* ==================== SKIP CONFIRMATION MODAL ==================== */
+
+.skip-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.skip-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.skip-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 85%;
+    max-width: 320px;
+    background: white;
+    border-radius: 20px;
+    z-index: 2101;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.skip-container.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.skip-header {
+    padding: 20px 20px 0 20px;
+}
+
+.skip-header h2 {
+    font-size: 22px;
+    margin: 0;
+}
+
+.skip-body {
+    padding: 20px;
+}
+
+.skip-body p {
+    margin: 8px 0;
+    color: #666;
+}
+
+.skip-warning {
+    font-size: 13px;
+    color: #999;
+}
+
+.skip-footer {
+    display: flex;
+    gap: 12px;
+    padding: 0 20px 20px 20px;
+}
+
+.cancel-skip-btn {
+    flex: 1;
+    padding: 12px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.confirm-skip-btn {
+    flex: 1;
+    padding: 12px;
+    background: #FF3B30;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* ==================== COMPLETION SUMMARY MODAL ==================== */
+
+.completion-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2200;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.completion-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.completion-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 85%;
+    max-width: 320px;
+    background: white;
+    border-radius: 20px;
+    z-index: 2201;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.completion-container.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.completion-header {
+    padding: 30px 20px 0 20px;
+}
+
+.completion-header h2 {
+    font-size: 24px;
+    margin: 0;
+    color: #34C759;
+}
+
+.completion-body {
+    padding: 20px;
+}
+
+.completion-routine-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.completion-message {
+    color: #666;
+    margin-bottom: 16px;
+}
+
+.completion-stats {
+    font-size: 16px;
+    font-weight: 500;
+    color: #007AFF;
+    margin-top: 16px;
+}
+
+.completion-footer {
+    padding: 0 20px 30px 20px;
+}
+
+.close-completion-btn {
+    padding: 12px 30px;
+    background: #007AFF;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* ==================== ROUTINE CARD ACTIONS ==================== */
+
+.routine-card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
+}
+
+/* Action buttons – balanced size for mobile */
+.start-btn,
+.skip-btn,
+.edit-btn,
+.reopen-btn {
+    padding: 8px 14px;        
+    font-size: 13px;          
+    min-height: 40px;         
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* Preserve original button colors */
+.start-btn {
+    background: #34C759;
+    color: white;
+    border: none;
+}
+
+.skip-btn {
+    background: #FF3B30;
+    color: white;
+    border: none;
+}
+
+.edit-btn {
+    background: #007AFF;
+    color: white;
+    border: none;
+}
+
+/* Reopen button – outline style */
+.reopen-btn {
+    background: transparent;
+    color: #FF9F4A;
+    border: 1px solid #FF9F4A;
+    padding: 7px 13px;        /* Slightly less to account for border */
+}
+
+/* Keep action buttons group flexible */
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.reopen-btn:hover {
+    background: rgba(255, 159, 74, 0.1); /* Very faint orange on hover */
+    border-color: #E88A2E;
+    color: #E88A2E;
+}
+
+.reopen-btn:active {
+    transform: scale(0.96);   /* Slight press effect */
+}
+
+/* Delete Routine button inside edit modal – red underlined link */
+.delete-routine-btn {
+    background: none;
+    border: none;
+    color: #FF3B30;
+    font-size: 14px;
+    text-decoration: underline;
+    padding: 12px 0;
+    display: block;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+.delete-routine-btn:hover {
+    color: #D32F2F;
+    text-decoration: none;
+}
+
+/* Delete Confirmation Modal – reuse skip modal styles but with different button colors */
+
+.delete-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2300;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+.delete-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+.delete-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 85%;
+    max-width: 320px;
+    background: white;
+    border-radius: 20px;
+    z-index: 2301;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+.delete-container.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+.delete-header {
+    padding: 20px 20px 0 20px;
+}
+.delete-header h2 {
+    font-size: 22px;
+    margin: 0;
+}
+.delete-body {
+    padding: 20px;
+}
+.delete-body p {
+    margin: 8px 0;
+    color: #666;
+}
+.delete-warning {
+    font-size: 13px;
+    color: #999;
+}
+.delete-footer {
+    display: flex;
+    gap: 12px;
+    padding: 0 20px 20px 20px;
+}
+.cancel-delete-btn {
+    flex: 1;
+    padding: 12px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.confirm-delete-btn {
+    flex: 1;
+    padding: 12px;
+    background: #FF3B30;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* Today vs Other sections */
+.section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 12px;
+    margin-top: 20px;
+}
+
+.section-header:first-of-type {
+    margin-top: 0;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.section-count {
+    font-size: 14px;
+    color: #666;
+}
+
+/* ====================== PROFILE.html ========== */
+.profile-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.profile-avatar {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.avatar-icon {
+    font-size: 64px;
+}
+
+.profile-form .form-group {
+    margin-bottom: 20px;
+}
+
+.profile-form label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.profile-form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+.profile-form input:focus {
+    outline: none;
+    border-color: #007AFF;
+}
+
+.profile-form input:disabled {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.profile-stats {
+    margin: 16px 0;
+    padding: 12px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    color: #555;
+    font-size: 14px;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.save-profile-btn,
+.logout-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.save-profile-btn {
+    background: #007AFF;
+    color: white;
+}
+
+.save-profile-btn:hover {
+    background: #0055CC;
+}
+
+.logout-btn {
+    background: #dc2626;
+    color: white;
+}
+
+.logout-btn:hover {
+    background: #b91c1c;
+}
+
+.success-message {
+    background: #e6f7e6;
+    color: #2e7d32;
+    padding: 10px;
+    border-radius: 12px;
+    text-align: center;
+    margin: 12px 0;
+}
+
+
+/* ==================== ABOUT.HTML =================== */
+
+/* About page styles */
+.about-section {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.about-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.about-section h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1a1a1a;
+}
+
+.about-section p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.about-section ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.about-section li {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+/* Contact links */
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.2s;
+}
+
+.contact-link:hover {
+    background: #e0e0e0;
+    transform: translateX(4px);
+}
+
+.contact-icon {
+    font-size: 20px;
+}
+
+/* Dark theme for about page */
+body.dark-theme .about-section {
+    border-bottom-color: #334155;
+}
+
+body.dark-theme .about-section h3 {
+    color: #f1f5f9;
+}
+
+body.dark-theme .about-section p,
+body.dark-theme .about-section li {
+    color: #cbd5e1;
+}
+
+body.dark-theme .contact-link {
+    background: #1e293b;
+    color: #f1f5f9;
+}
+
+body.dark-theme .contact-link:hover {
+    background: #334155;
+}
+
+/* ==================== АУТЕНТИФИКАЦИЯ ==================== */
+
+/* Фон страниц входа и регистрации */
+.auth-page {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Контейнер для карточки */
+.auth-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+/* Белая карточка с формой */
+.auth-card {
+    background: white;
+    border-radius: 24px;
+    padding: 32px 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Заголовок карточки */
+.auth-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.auth-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.auth-header p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Форма */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Группа полей */
+.auth-form .form-group {
+    margin-bottom: 0;
+}
+
+.auth-form .form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.auth-form .form-group input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 16px;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.auth-form .form-group input:focus {
+    outline: none;
+    border-color: #007AFF;
+}
+
+/* Кнопка входа/регистрации */
+.auth-btn {
+    background: #007AFF;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 4px;
+}
+
+.auth-btn:hover {
+    background: #0055CC;
+}
+
+/* Сообщение об ошибке */
+.error-message {
+    background: #FFEBEE;
+    color: #C62828;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Ссылка внизу формы */
+.auth-footer {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+}
+
+.auth-footer p {
+    font-size: 14px;
+    color: #666;
+}
+
+.auth-footer a {
+    color: #007AFF;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+
+
+/* Увеличенный выпадающий список для мобильных устройств */
+.form-group select {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 16px;          /* предотвращает масштабирование на iOS */
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+}
+
+/* Тёмная тема для select */
+body.dark-theme .form-group select {
+    background-color: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23cbd5e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+}

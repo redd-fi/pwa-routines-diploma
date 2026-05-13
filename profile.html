@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль — Мои распорядки</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="196x196" href="icons/favicon-196.png">
+    <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+<main class="main-content">
+    <div class="top-bar">
+        <button class="menu-btn" onclick="window.location.href='index.html'">← Назад</button>
+        <h1 class="app-title">Профиль</h1>
+        <div class="placeholder"></div>
+    </div>
+
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-avatar">
+                <span class="avatar-icon">👤</span>
+            </div>
+
+            <form id="profileForm" class="profile-form">
+                <div class="form-group">
+                    <label>Имя</label>
+                    <input type="text" id="profileName" placeholder="Ваше имя">
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="profileEmail" readonly disabled>
+                </div>
+
+                <div class="profile-stats">
+                    <p>📅 Аккаунт создан: <span id="memberSince">—</span></p>
+                </div>
+
+                <div id="profileMessage" class="success-message" style="display: none;"></div>
+
+                <div class="profile-actions">
+                    <button type="submit" class="save-profile-btn">💾 Сохранить</button>
+                    <button type="button" id="logoutBtn" class="logout-btn">🚪 Выйти</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<script src="auth.js"></script>
+<script src="theme.js"></script>
+<script>
+    // Define API_URL matching your backend
+    const API_URL = 'http://localhost:5000/api';
+    const token = localStorage.getItem('authToken');
+
+    if (!token) {
+        window.location.href = 'login.html';
+    }
+
+    async function loadProfile() {
+        try {
+            const res = await fetch(`${API_URL}/auth/me`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                document.getElementById('profileName').value = data.user.name || '';
+                document.getElementById('profileEmail').value = data.user.email;
+
+                if (data.user.createdAt) {
+                    const date = new Date(data.user.createdAt).toLocaleDateString('ru-RU');
+                    document.getElementById('memberSince').textContent = date;
+                }
+            } else if (res.status === 401) {
+                alert('Сессия истекла. Пожалуйста, войдите снова.');
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('user');
+                window.location.href = 'login.html';
+            } else {
+                alert('Ошибка загрузки профиля');
+            }
+        } catch (err) {
+            alert('Ошибка соединения с сервером');
+        }
+    }
+
+    document.getElementById('profileForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('profileName').value.trim();
+
+        try {
+            const res = await fetch(`${API_URL}/auth/profile`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ name: name || null })
+            });
+
+            if (res.ok) {
+                const msg = document.getElementById('profileMessage');
+                msg.textContent = '✅ Профиль обновлён';
+                msg.style.display = 'block';
+                setTimeout(() => msg.style.display = 'none', 3000);
+
+                const user = JSON.parse(localStorage.getItem('user') || '{}');
+                user.name = name;
+                localStorage.setItem('user', JSON.stringify(user));
+            } else {
+                const err = await res.json();
+                alert('Ошибка: ' + (err.error || 'не удалось обновить'));
+            }
+        } catch (err) {
+            alert('Ошибка соединения с сервером');
+        }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        if (confirm('Вы уверены, что хотите выйти?')) {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('user');
+            window.location.href = 'login.html';
+        }
+    });
+
+    loadProfile();
+</script>
+</body>
+</html>
