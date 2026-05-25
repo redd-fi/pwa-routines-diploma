@@ -38,8 +38,10 @@
 <script src="auth.js"></script>
 <script src="theme.js"></script>
 <script>
+    
     // Убедимся, что пользователь авторизован
-    if (!localStorage.getItem('authToken')) {
+
+    if (!localStorage.getItem('authToken')) {    // coment the chunk out for phone demonstration
         window.location.href = 'login.html';
     }
 

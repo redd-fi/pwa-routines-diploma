@@ -653,13 +653,14 @@ function redirectToLogin() {
 // ==================== INITIALIZATION ====================
 
 function init() {
-    // Аутентификация временно отключена для разработки
-    // const publicPages = ['login.html', 'signup.html'];
-    // const currentPage = window.location.pathname.split('/').pop();
-    // if (!publicPages.includes(currentPage) && !isAuthenticated()) {
-    //     redirectToLogin();
-    //     return;
-    // }
+    // Аутентификация можно временно отключить для демострации
+    const publicPages = ['login.html', 'signup.html'];
+    const currentPage = window.location.pathname.split('/').pop();
+    if (!publicPages.includes(currentPage) && !isAuthenticated()) {
+        redirectToLogin();
+        return;
+    }
+    // till here, the redirect section
     
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     if (user.name && document.getElementById('userName')) {

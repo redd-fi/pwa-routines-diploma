@@ -1,6 +1,6 @@
 // ==================== AUTHENTICATION CONFIGURATION ====================
 
-const API_URL = '/api';
+const API_URL = 'http://localhost:5000/api';
 
 // ==================== HELPER FUNCTIONS ====================
 
@@ -129,7 +129,7 @@ if (document.getElementById('signupForm')) {
 // ==================== PROFILE PAGE ====================
 
 if (document.getElementById('profileForm')) {
-    if (!isAuthenticated()) {
+    if (!isAuthenticated()) {        // comment-out this chunk for phone demonstration
         redirectToLogin();
     }
     
